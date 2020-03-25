@@ -1,0 +1,247 @@
+<html>
+    <head>
+        <script src="jquery.min.1.11.1.js" type="text/javascript"></script>
+        <style>
+            body {
+                text-align:center;
+                background-color: #c3d3e8;
+            }
+
+            h1 {
+                color: white;
+            }
+
+            table, th, td {
+                align: center;
+                border: 1px solid black;
+            }
+
+            table {
+                text-align:center;
+                width: 450px;
+                height: 300px;
+                margin-left:auto;
+                margin-right:auto;
+            }
+
+            table#original tr:nth-child(even) , input.even{
+                background-color: #b8b3a7;
+            }
+            table#original tr:nth-child(odd) , input.odd{
+                background-color: #fff;
+            }
+            table#original th {
+                color: white;
+                background-color: #5db361;
+            }
+
+            input {
+                text-align:center;
+            }
+
+            button {
+                background-color: #41d9ae;
+                color: black;
+                border-radius: 6px;
+                font-family: "Times New Roman";
+                font-weight: bold;
+            }
+
+            .normal {
+                margin-left:auto;
+                margin-right:auto;
+                width: 400px;
+                height: 300px;
+            }
+
+            .normal tr:nth-child(even) {
+                background-color: #b8b3a7;
+            }
+            .normal tr:nth-child(odd) {
+                background-color: #fff;
+            }
+            .normal th {
+                color: white;
+                background-color: #5db361;
+            }
+        </style>
+        <script>
+        function toLowerCase(){
+            var table = document.getElementById("original");
+            var tableout = document.getElementById("output");
+            table.hidden=true;
+            tableout.hidden =false;
+
+            string ={
+                names:[],
+                address:[]
+            }
+
+            for(var i=1;i<=10;i++)
+            {
+                string.names.push(document.getElementById("name"+i).value);
+                string.address.push(document.getElementById("addr"+i).value);
+            }
+                console.log(string);
+
+                fetch("http://localhost:3000/getLower/", {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        json:string
+                    }),
+
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+
+                .then(response => response.json())
+
+                .then((json)=>{
+                    var names = json.names;
+                    var address = json.address;
+                    var html ="";
+                    $('#output').html('<table />');
+                    html+="<tr><th>Serial Number</th><th>Name</th><th>Address</th></tr>"
+                    $('#output table').append(html);
+                    for (var i=0;i<10;i++){
+                        html="<tr>"
+                        html+="<td>"+(parseInt(i)+parseInt(1))+"</td>";
+                        html+="<td>"+names[i]+"</td>";
+                        html+="<td>"+address[i]+"</td>";
+                        html+="</tr>";
+                        $('#output table').append(html);
+                    }
+                    $('#output table').addClass('normal');
+                });
+        }
+
+        function toUpperCase(){
+            var table = document.getElementById("original");
+            var tableout = document.getElementById("output");
+            table.hidden=true;
+            tableout.hidden =false;
+
+            string ={
+                names:[],
+                address:[]
+            }
+
+            for(var i=1;i<=10;i++)
+            {
+                string.names.push(document.getElementById("name"+i).value);
+                string.address.push(document.getElementById("addr"+i).value);
+            }
+                console.log(string);
+
+                fetch("http://localhost:3000/getUpper/", {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        json:string
+                    }),
+
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                })
+
+                .then(response => response.json())
+
+                .then((json)=>{
+                    var names = json.names;
+                    var address = json.address;
+                    var html ="";
+                    $('#output').html('<table />');
+                    html+="<tr><th>Serial Number</th><th>Name</th><th>Address</th></tr>"
+                    $('#output table').append(html);
+                    for (var i=0;i<10;i++){
+                        html="<tr>"
+                        html+="<td>"+(parseInt(i)+parseInt(1))+"</td>";
+                        html+="<td>"+names[i]+"</td>";
+                        html+="<td>"+address[i]+"</td>";
+                        html+="</tr>";
+                        $('#output table').append(html);
+                    }
+                    $('#output table').addClass('normal');
+                });
+        }
+
+        function showOriginal() {
+          var table = document.getElementById("original");
+          var tableout = document.getElementById("output");
+          tableout.hidden=true;
+          table.hidden=false;
+        }
+
+        </script>
+        <title>Web Technologies Assignment - Abilash Sajeev</title>
+    </head>
+    <body>
+        <br>
+        <h1>PERSONAL DETAILS</h1>
+        <table id="original">
+            <tr>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Address</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td> <input type="text" class="even" id="name1"></td>
+                <td> <input type="text" class="even" id="addr1"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td> <input type="text" class="odd" id="name2"></td>
+                <td> <input type="text" class="odd" id="addr2"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td> <input type="text" class="even" id="name3"></td>
+                <td> <input type="text" class="even" id="addr3"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td> <input type="text" class="odd" id="name4"></td>
+                <td> <input type="text" class="odd" id="addr4"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td> <input type="text" class="even" id="name5"></td>
+                <td> <input type="text" class="even" id="addr5"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td> <input type="text" class="odd" id="name6"></td>
+                <td> <input type="text" class="odd" id="addr6"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td> <input type="text" class="even" id="name7"></td>
+                <td> <input type="text" class="even" id="addr7"></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td> <input type="text" class="odd" id="name8"></td>
+                <td> <input type="text" class="odd" id="addr8"></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td> <input type="text" class="even" id="name9"></td>
+                <td> <input type="text" class="even" id="addr9"></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td> <input type="text" class="odd" id="name10"></td>
+                <td> <input type="text" class="odd" id="addr10"></td>
+            </tr>
+        </table>
+        <div id="output"></div>
+        <br>
+        <button id="toUpper" OnClick="toUpperCase()"> Make Upper Case </button>
+        <button id="toLower" OnClick="toLowerCase()"> Make Lower Case </button>
+        <button id="toOriginal" OnClick="showOriginal()"> Show Original </button>
+    </body>
+</html>
